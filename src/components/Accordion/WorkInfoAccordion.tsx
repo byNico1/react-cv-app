@@ -8,7 +8,6 @@ import { workSchema } from "../../utils/schemas";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
 import {
-  PersonEducationData,
   PersonFullDataInterface,
   PersonWorkData,
 } from "../../utils/types/dataInterfaces";

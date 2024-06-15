@@ -1,8 +1,6 @@
 import LabelContainer from "../forms/LabelContainer";
 import MyAccordion from "./MyAccordion";
 import { Button } from "@material-tailwind/react";
-import { saveSchoolData } from "../../utils/saveData";
-import { schoolsData } from "../../utils/personDataObjects";
 import { selectData } from "../../utils/selectData";
 import { schoolSchema } from "../../utils/schemas";
 import { Dispatch, ReactElement, SetStateAction } from "react";
@@ -37,8 +35,6 @@ function SchoolInfoAccordion({
 }: Props) {
   const [personEducationData, setPersonEducationData] = personEducation;
 
-  // const { schools } = schoolsData;
-
   const handleSubmit = () => {
     const result = schoolSchema.safeParse(personEducationData);
 
@@ -61,7 +57,6 @@ function SchoolInfoAccordion({
     const result = schoolSchema.safeParse(
       personFullData.schools[personFullData.schools.length - 1]
     );
-    // const schoolsLength = schools.length;
 
     if (result.success === false) {
       personFullData.schools.pop();
@@ -80,10 +75,7 @@ function SchoolInfoAccordion({
   };
 
   const handleDelete = () => {
-    // *Posibles Casos: crea pero no pone datos,
-
     const neededId = personEducationData.id;
-    // const schoolsLength = schools.length;
 
     const index = personFullData.schools.findIndex(
       (school) => school.id === neededId
