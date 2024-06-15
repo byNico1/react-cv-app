@@ -16,21 +16,18 @@ function GeneralInfo({ personData }: Props) {
     <section>
       <SectionTitle>Personal Details</SectionTitle>
       <LabelContainer<PersonFullDataInterface>
-        // changeOnId={changeOnId}
         personData={personData}
         type="text"
         id="name"
         content="Name"
       />
       <LabelContainer<PersonFullDataInterface>
-        // changeOnId={changeOnId}
         personData={personData}
         type="email"
         id="email"
         content="Email"
       />
       <LabelContainer<PersonFullDataInterface>
-        // changeOnId={changeOnId}
         personData={personData}
         type="tel"
         id="phone"

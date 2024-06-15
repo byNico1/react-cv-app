@@ -53,7 +53,6 @@ function SchoolInfoAccordion({
   };
 
   const handleCancel = () => {
-    // *Posibles Casos: crea pero no pone datos,
     const result = schoolSchema.safeParse(
       personFullData.schools[personFullData.schools.length - 1]
     );

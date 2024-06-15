@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { changeOnId } from "../../utils/changeOnId";
 
 import {

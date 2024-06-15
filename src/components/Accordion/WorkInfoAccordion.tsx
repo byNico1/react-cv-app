@@ -1,7 +1,6 @@
 import LabelContainer from "../forms/LabelContainer";
 import MyAccordion from "./MyAccordion";
 import { Button } from "@material-tailwind/react";
-import { saveWorkData } from "../../utils/saveData";
 
 import { selectData } from "../../utils/selectData";
 import { workSchema } from "../../utils/schemas";
@@ -45,7 +44,6 @@ function WorkInfoAccordion({
 
     console.log(result);
 
-    // saveWorkData(personWorkData, personWorkData.id);
     submitToFullData("companys", personWorkData, personWorkData.id);
     setPersonWorkData({
       ...personWorkData,
@@ -54,11 +52,9 @@ function WorkInfoAccordion({
   };
 
   const handleCancel = () => {
-    // *Posibles Casos: crea pero no pone datos,
     const result = workSchema.safeParse(
       personFullData.companys[personFullData.companys.length - 1]
     );
-    // const schoolsLength = schools.length;
 
     if (result.success === false) {
       personFullData.companys.pop();
@@ -77,10 +73,7 @@ function WorkInfoAccordion({
   };
 
   const handleDelete = () => {
-    // *Posibles Casos: crea pero no pone datos,
-
     const neededId = personWorkData.id;
-    // const schoolsLength = schools.length;
 
     const index = personFullData.companys.findIndex(
       (company) => company.id === neededId
