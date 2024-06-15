@@ -8,6 +8,10 @@ import {
   PersonFullDataInterface,
   PersonWorkData,
 } from "./utils/types/dataInterfaces";
+import {
+  defaultEducationData,
+  defaultWorkData,
+} from "./utils/defaultsDataConsts";
 
 function App() {
   const [personFullData, setPersonFullData] = useState<PersonFullDataInterface>(
@@ -56,28 +60,30 @@ function App() {
   }, [personEducationData]);
 
   const submitToFullData = (
-    data: any,
-    dataId: string,
-    container: "schools" | "companys"
-  ): any => {
-    const indexOfData = personFullData[container].findIndex(
-      (objectData) => objectData.id === dataId
-    );
-
-    console.log(indexOfData);
-
-    if (indexOfData >= 0) {
-      const updatedArray = personFullData[container].map((item, index) =>
-        index === indexOfData ? { ...item, ...data } : item
+    container: "schools" | "companys",
+    data?: Omit<PersonWorkData | PersonEducationData, "closed">,
+    dataId?: string
+  ): void | PersonWorkData | PersonEducationData => {
+    if (dataId && data) {
+      const indexOfData = personFullData[container].findIndex(
+        (objectData) => objectData.id === dataId
       );
-      setPersonFullData({
-        ...personFullData,
-        [container]: updatedArray,
-      });
+
+      console.log(indexOfData);
+
+      if (indexOfData >= 0) {
+        const updatedArray = personFullData[container].map((item, index) =>
+          index === indexOfData ? { ...item, ...data } : item
+        );
+        setPersonFullData({
+          ...personFullData,
+          [container]: updatedArray,
+        });
+      }
     } else {
       const dataToSave: Omit<PersonEducationData | PersonWorkData, "closed"> = {
         id: uuidv4(),
-        ...data,
+        ...(container === "schools" ? defaultEducationData : defaultWorkData),
       };
 
       setPersonFullData({
@@ -85,10 +91,17 @@ function App() {
         [container]: [...personFullData[container], dataToSave],
       });
 
-      return {
-        ...dataToSave,
-        closed: false,
-      };
+      if (container === "schools") {
+        return {
+          ...dataToSave,
+          closed: false,
+        } as PersonEducationData;
+      } else {
+        return {
+          ...dataToSave,
+          closed: false,
+        } as PersonWorkData;
+      }
     }
   };
 
