@@ -13,9 +13,9 @@ import { PersonFullDataInterface } from "../../utils/types/dataInterfaces";
 
 interface Props {
   submitToFullData: (
-    data: any,
-    dataId: string,
-    container: "schools" | "companys"
+    container: "schools" | "companys",
+    data?: Omit<PersonEducationData, "closed">,
+    dataId?: string
   ) => void;
   personEducation: [
     PersonEducationData,
@@ -49,7 +49,7 @@ function SchoolInfoAccordion({
 
     console.log(result);
 
-    submitToFullData(result.data, personEducationData.id, "schools");
+    submitToFullData("schools", personEducationData, personEducationData.id);
     setPersonEducationData({
       ...personEducationData,
       closed: true,
@@ -195,8 +195,12 @@ function SchoolInfoAccordion({
       )}
       {personEducationData.closed && (
         <Button
-          //TODO: Finish
-          onClick={() => setPersonEducationData(saveSchoolData())}
+          onClick={() => {
+            const result = submitToFullData("schools");
+            if (result !== undefined) {
+              setPersonEducationData(result as PersonEducationData);
+            }
+          }}
           variant="gradient"
           className="mt-5"
         >

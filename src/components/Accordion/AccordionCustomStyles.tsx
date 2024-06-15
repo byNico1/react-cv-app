@@ -35,9 +35,9 @@ interface Props {
   ];
   personWork: [PersonWorkData, Dispatch<SetStateAction<PersonWorkData>>];
   submitToFullData: (
-    data: any,
-    dataId: string,
-    container: "schools" | "companys"
+    container: "schools" | "companys",
+    data?: Omit<PersonWorkData | PersonEducationData, "closed">,
+    dataId?: string
   ) => void;
   personFullData: PersonFullDataInterface;
 }

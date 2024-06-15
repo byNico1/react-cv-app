@@ -8,6 +8,7 @@ import { workSchema } from "../../utils/schemas";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
 import {
+  PersonEducationData,
   PersonFullDataInterface,
   PersonWorkData,
 } from "../../utils/types/dataInterfaces";
@@ -19,9 +20,9 @@ interface Props {
   icon: ReactElement;
   handleOpen: (value: number) => void;
   submitToFullData: (
-    data: any,
-    dataId: string,
-    container: "schools" | "companys"
+    container: "schools" | "companys",
+    data?: Omit<PersonWorkData, "closed">,
+    dataId?: string
   ) => void;
 }
 
@@ -46,7 +47,7 @@ function WorkInfoAccordion({
     console.log(result);
 
     // saveWorkData(personWorkData, personWorkData.id);
-    submitToFullData(result.data, personWorkData.id, "companys");
+    submitToFullData("companys", personWorkData, personWorkData.id);
     setPersonWorkData({
       ...personWorkData,
       closed: true,
@@ -196,7 +197,12 @@ function WorkInfoAccordion({
         )}
         {personWorkData.closed && (
           <Button
-            onClick={() => setPersonWorkData(saveWorkData())}
+            onClick={() => {
+              const result = submitToFullData("companys");
+              if (result !== undefined) {
+                setPersonWorkData(result as PersonWorkData);
+              }
+            }}
             variant="gradient"
             className="mt-5"
           >
