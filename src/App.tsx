@@ -12,6 +12,7 @@ import {
   defaultEducationData,
   defaultWorkData,
 } from "./utils/defaultsDataConsts";
+import SheetContainer from "./components/resultSheet/SheetContainer";
 
 function App() {
   const [personFullData, setPersonFullData] = useState<PersonFullDataInterface>(
@@ -114,6 +115,8 @@ function App() {
         submitToFullData={submitToFullData}
         personFullData={personFullData}
       />
+
+      <SheetContainer personFullData={personFullData} />
     </>
   );
 }
