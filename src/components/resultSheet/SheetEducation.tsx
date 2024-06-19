@@ -15,7 +15,7 @@ function SheetEducation({ personEducation, bgColor }: Props) {
           backgroundColor:
             lightOrDark(bgColor) === "dark" ? "#000000" : "#53535312",
         }}
-        className="py-3"
+        className="p-3"
       >
         <h2 className="font-bold text-lg">Education</h2>
       </div>
