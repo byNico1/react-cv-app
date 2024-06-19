@@ -13,6 +13,8 @@ import {
   defaultWorkData,
 } from "./utils/defaultsDataConsts";
 import SheetContainer from "./components/resultSheet/SheetContainer";
+import ChangeLayout from "./components/resultSheet/ChangeLayout";
+import ChangeBgColor from "./components/resultSheet/ChangeBgColor";
 
 function App() {
   const [personFullData, setPersonFullData] = useState<PersonFullDataInterface>(
@@ -48,6 +50,11 @@ function App() {
       endDateJob: "",
       closed: true,
     });
+
+  const [bgColor, setBgColor] = useState("#2E373D");
+  const [layoutShift, setLayoutShift] = useState<"vertical" | "left" | "right">(
+    "vertical"
+  );
 
   useEffect(() => {
     console.log(personFullData.generalInfo.name);
@@ -106,17 +113,51 @@ function App() {
     }
   };
 
+  const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBgColor(e.target.value);
+  };
+
+  const handleLayoutChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (
+      e.target.value === "vertical" ||
+      e.target.value === "left" ||
+      e.target.value === "right"
+    ) {
+      setLayoutShift(e.target.value);
+    }
+  };
+
   return (
     <>
-      <GeneralInfo personData={[personFullData, setPersonFullData]} />
-      <AccordionCustomStyles
-        personEducation={[personEducationData, setPersonEducationData]}
-        personWork={[personPracticalData, setPersonPracticalData]}
-        submitToFullData={submitToFullData}
-        personFullData={personFullData}
-      />
+      <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto items-center">
+        <div>
+          <GeneralInfo personData={[personFullData, setPersonFullData]} />
+          <AccordionCustomStyles
+            personEducation={[personEducationData, setPersonEducationData]}
+            personWork={[personPracticalData, setPersonPracticalData]}
+            submitToFullData={submitToFullData}
+            personFullData={personFullData}
+          />
+        </div>
 
-      <SheetContainer personFullData={personFullData} />
+        <div>
+          <ChangeLayout
+            bgColor={bgColor}
+            layoutShift={layoutShift}
+            handleLayoutChange={handleLayoutChange}
+          />
+          <ChangeBgColor
+            bgColor={bgColor}
+            handleColorChange={handleColorChange}
+          />
+        </div>
+      </div>
+
+      <SheetContainer
+        personFullData={personFullData}
+        bgColor={bgColor}
+        layoutShift={layoutShift}
+      />
     </>
   );
 }

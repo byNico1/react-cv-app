@@ -1,42 +1,76 @@
-import { useState } from "react";
 import { PersonFullDataInterface } from "../../utils/types/dataInterfaces";
 import SheetTitleSection from "./SheetTitleSection";
-import ChangeBgColor from "./ChangeBgColor";
 import SheetEducation from "./SheetEducation";
 import SheetWork from "./SheetWork";
 
 interface Props {
   personFullData: PersonFullDataInterface;
+  bgColor: string;
+  layoutShift: "vertical" | "left" | "right";
 }
 
-const SheetContainer = ({ personFullData }: Props) => {
-  const [bgColor, setBgColor] = useState("#2E373D");
+const SheetContainer = ({ personFullData, bgColor, layoutShift }: Props) => {
+  const DefineGridTemplateAreas =
+    layoutShift === "left"
+      ? '"title education" "title work"'
+      : layoutShift === "right"
+      ? '"education title" "work title"'
+      : '"title title" "education education" "work work"';
 
-  const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBgColor(e.target.value);
-  };
+  const DefineGridTemplateColumns =
+    layoutShift === "left"
+      ? "0.9fr 1.1fr"
+      : layoutShift === "right"
+      ? "1.1fr 0.9fr"
+      : "1fr";
+  const DefineGridTemplateRows =
+    layoutShift === "left"
+      ? "1fr 1fr"
+      : layoutShift === "right"
+      ? "1fr 1fr"
+      : "150px 1fr 1fr";
 
   return (
-    <div className="mt-10 grid grid-cols-1 lg:grid-cols-[300px_minmax(0,_1fr)]">
-      <ChangeBgColor bgColor={bgColor} handleColorChange={handleColorChange} />
-      <section className="sheet-container pb-5 min-h-[600px]">
-        <SheetTitleSection
-          personBasicData={personFullData.generalInfo}
-          bgColor={bgColor}
-        />
-
-        <div className="px-14 mt-10">
-          <SheetEducation
-            personEducation={personFullData.schools}
+    <>
+      <div className="mt-10 grid grid-cols-1 gap-5 max-w-5xl mx-auto">
+        <section
+          className="sheet-container min-h-[750px]"
+          style={{
+            display: "grid",
+            gridTemplateColumns: DefineGridTemplateColumns,
+            gridTemplateRows: DefineGridTemplateRows,
+            gridTemplateAreas: DefineGridTemplateAreas,
+          }}
+        >
+          <SheetTitleSection
+            personBasicData={personFullData.generalInfo}
             bgColor={bgColor}
+            layoutShift={layoutShift}
           />
-        </div>
 
-        <div className="px-14 mt-10">
-          <SheetWork personWork={personFullData.companys} bgColor={bgColor} />
-        </div>
-      </section>
-    </div>
+          <div
+            className="px-14 mt-10"
+            style={{
+              gridArea: "education",
+            }}
+          >
+            <SheetEducation
+              personEducation={personFullData.schools}
+              bgColor={bgColor}
+            />
+          </div>
+
+          <div
+            className="px-14 mt-10 pb-5"
+            style={{
+              gridArea: "work",
+            }}
+          >
+            <SheetWork personWork={personFullData.companys} bgColor={bgColor} />
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 
