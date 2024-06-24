@@ -21,7 +21,10 @@ function SheetEducation({ personEducation, bgColor }: Props) {
       </div>
 
       {personEducation?.map((education) => (
-        <div key={education.id} className="flex gap-10 mt-5 text-left">
+        <div
+          key={education.id}
+          className="flex gap-10 mt-5 text-left flex-wrap lg:flex-nowrap"
+        >
           <div className="min-w-40">
             <p>
               {education.startDateEducation}

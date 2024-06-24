@@ -25,51 +25,49 @@ const SheetContainer = ({ personFullData, bgColor, layoutShift }: Props) => {
       : "1fr";
   const DefineGridTemplateRows =
     layoutShift === "left"
-      ? "1fr 1fr"
+      ? "auto auto"
       : layoutShift === "right"
-      ? "1fr 1fr"
-      : "150px 1fr 1fr";
+      ? "auto auto"
+      : "auto auto auto";
 
   return (
     <>
-      <div className="mt-10 grid grid-cols-1 gap-5 max-w-5xl mx-auto">
-        <section
-          className="sheet-container min-h-[750px]"
+      <section
+        className="sheet-container min-h-[650px] max-w-5xl mx-auto w-full"
+        style={{
+          display: "grid",
+          gridTemplateColumns: DefineGridTemplateColumns,
+          gridTemplateRows: DefineGridTemplateRows,
+          gridTemplateAreas: DefineGridTemplateAreas,
+        }}
+      >
+        <SheetTitleSection
+          personBasicData={personFullData.generalInfo}
+          bgColor={bgColor}
+          layoutShift={layoutShift}
+        />
+
+        <div
+          className="px-14 mt-10"
           style={{
-            display: "grid",
-            gridTemplateColumns: DefineGridTemplateColumns,
-            gridTemplateRows: DefineGridTemplateRows,
-            gridTemplateAreas: DefineGridTemplateAreas,
+            gridArea: "education",
           }}
         >
-          <SheetTitleSection
-            personBasicData={personFullData.generalInfo}
+          <SheetEducation
+            personEducation={personFullData.schools}
             bgColor={bgColor}
-            layoutShift={layoutShift}
           />
+        </div>
 
-          <div
-            className="px-14 mt-10"
-            style={{
-              gridArea: "education",
-            }}
-          >
-            <SheetEducation
-              personEducation={personFullData.schools}
-              bgColor={bgColor}
-            />
-          </div>
-
-          <div
-            className="px-14 mt-10 pb-5"
-            style={{
-              gridArea: "work",
-            }}
-          >
-            <SheetWork personWork={personFullData.companys} bgColor={bgColor} />
-          </div>
-        </section>
-      </div>
+        <div
+          className="px-14 mt-10 pb-10"
+          style={{
+            gridArea: "work",
+          }}
+        >
+          <SheetWork personWork={personFullData.companys} bgColor={bgColor} />
+        </div>
+      </section>
     </>
   );
 };

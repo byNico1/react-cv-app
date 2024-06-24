@@ -6,7 +6,7 @@ interface Props {
 function ChangeBgColor({ bgColor, handleColorChange }: Props) {
   return (
     <div className="flex flex-wrap items-center gap-5 shadow-md p-5 rounded-md">
-      <label htmlFor="color">Section Background Color</label>
+      <label htmlFor="color">Second Color</label>
       <input
         className="bg__input"
         type="color"

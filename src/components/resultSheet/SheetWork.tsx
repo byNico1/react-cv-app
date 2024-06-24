@@ -21,7 +21,10 @@ function SheetWork({ personWork, bgColor }: Props) {
       </div>
 
       {personWork?.map((work) => (
-        <div key={work.id} className="flex gap-10 mt-5 text-left">
+        <div
+          key={work.id}
+          className="flex gap-10 mt-5 text-left flex-wrap lg:flex-nowrap"
+        >
           <div className="min-w-40">
             <p>
               {work.startDateJob}
