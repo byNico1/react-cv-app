@@ -108,7 +108,8 @@ function SchoolInfoAccordion({
         <div className="flex flex-col gap-5 justify-center items-center">
           {personFullData.schools.map((school) => (
             <Button
-              variant="outlined"
+              variant="gradient"
+              color="green"
               key={school.id}
               onClick={() =>
                 setPersonEducationData({

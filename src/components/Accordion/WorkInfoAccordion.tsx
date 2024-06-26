@@ -108,7 +108,8 @@ function WorkInfoAccordion({
           <div className="flex flex-col gap-5 justify-center items-center">
             {personFullData.companys.map((company) => (
               <Button
-                variant="outlined"
+                variant="gradient"
+                color="brown"
                 key={company.id}
                 onClick={() =>
                   setPersonWorkData({
