@@ -15,6 +15,12 @@ type Props<T extends PersonDataOptions | PersonFullDataInterface> = {
   personData: PersonDataState<T>;
 };
 
+function isPersonFullDataInterface(
+  data: PersonFullDataInterface | PersonDataOptions
+): data is PersonFullDataInterface {
+  return (data as PersonFullDataInterface).generalInfo !== undefined;
+}
+
 function LabelContainer<T extends PersonFullDataInterface | PersonDataOptions>({
   type,
   content,
@@ -23,6 +29,18 @@ function LabelContainer<T extends PersonFullDataInterface | PersonDataOptions>({
   personData,
 }: Props<T>) {
   const [personArrayData, setPersonArrayData]: PersonDataState<T> = personData;
+
+  const getValue = (): string => {
+    // Use type guard to check if the data is of type PersonFullDataInterface
+    if (isPersonFullDataInterface(personArrayData)) {
+      if (id in personArrayData.generalInfo) {
+        return personArrayData.generalInfo[
+          id as keyof PersonFullDataInterface["generalInfo"]
+        ] as string;
+      }
+    }
+    return personArrayData[id as keyof T] as string;
+  };
 
   return (
     <div className="my-5">
@@ -34,7 +52,7 @@ function LabelContainer<T extends PersonFullDataInterface | PersonDataOptions>({
           placeholder=" "
           type={type}
           id={id as string}
-          value={personArrayData[id as keyof T] as string}
+          value={getValue()}
           pattern={id === "phone" ? "[+]{1}[0-9]{11,14}" : undefined}
         />
         <label
