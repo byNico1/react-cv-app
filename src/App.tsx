@@ -15,6 +15,8 @@ import {
 import SheetContainer from "./components/resultSheet/SheetContainer";
 import ChangeLayout from "./components/resultSheet/ChangeLayout";
 import ChangeBgColor from "./components/resultSheet/ChangeBgColor";
+import { Button } from "@material-tailwind/react";
+import SelectToEdit from "./components/resultSheet/SelectToEdit";
 
 function App() {
   const [personFullData, setPersonFullData] = useState<PersonFullDataInterface>(
@@ -51,6 +53,7 @@ function App() {
       closed: true,
     });
 
+  const [editOption, setEditOption] = useState<"info" | "styles">("info");
   const [bgColor, setBgColor] = useState("#2E373D");
   const [layoutShift, setLayoutShift] = useState<"vertical" | "left" | "right">(
     "vertical"
@@ -127,30 +130,45 @@ function App() {
     }
   };
 
+  const handleEditOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === "info" || e.target.value === "styles") {
+      setEditOption(e.target.value);
+    }
+  };
+
   return (
-    <>
-      <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto items-center">
-        <div>
-          <GeneralInfo personData={[personFullData, setPersonFullData]} />
-          <AccordionCustomStyles
-            personEducation={[personEducationData, setPersonEducationData]}
-            personWork={[personPracticalData, setPersonPracticalData]}
-            submitToFullData={submitToFullData}
-            personFullData={personFullData}
+    <div className="grid 2xl:grid-cols-[400px,_minmax(0,_1fr)] gap-8 items-start">
+      <div>
+        <div className="p-5 shadow-md rounded-md mb-5">
+          <SelectToEdit
+            editOption={editOption}
+            handleEditOption={handleEditOption}
           />
         </div>
 
-        <div>
-          <ChangeLayout
-            bgColor={bgColor}
-            layoutShift={layoutShift}
-            handleLayoutChange={handleLayoutChange}
-          />
-          <ChangeBgColor
-            bgColor={bgColor}
-            handleColorChange={handleColorChange}
-          />
-        </div>
+        {editOption === "info" ? (
+          <div>
+            <GeneralInfo personData={[personFullData, setPersonFullData]} />
+            <AccordionCustomStyles
+              personEducation={[personEducationData, setPersonEducationData]}
+              personWork={[personPracticalData, setPersonPracticalData]}
+              submitToFullData={submitToFullData}
+              personFullData={personFullData}
+            />
+          </div>
+        ) : (
+          <div>
+            <ChangeLayout
+              bgColor={bgColor}
+              layoutShift={layoutShift}
+              handleLayoutChange={handleLayoutChange}
+            />
+            <ChangeBgColor
+              bgColor={bgColor}
+              handleColorChange={handleColorChange}
+            />
+          </div>
+        )}
       </div>
 
       <SheetContainer
@@ -158,7 +176,7 @@ function App() {
         bgColor={bgColor}
         layoutShift={layoutShift}
       />
-    </>
+    </div>
   );
 }
 
