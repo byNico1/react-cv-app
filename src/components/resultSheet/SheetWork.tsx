@@ -9,23 +9,28 @@ interface Props {
 function SheetWork({ personWork, bgColor }: Props) {
   return (
     <div>
+      <h2 className="text-left mb-4 font-bold text-lg">
+        Professional Experience
+      </h2>
       <div
+        className="border-b"
         style={{
           color: bgColor,
-          backgroundColor:
-            lightOrDark(bgColor) === "dark" ? "#000000" : "#53535312",
+          borderBottomColor:
+            lightOrDark(bgColor) === "dark" ? "#000000" : bgColor,
         }}
-        className="p-3"
-      >
-        <h2 className=" font-bold text-lg">Professional Experience</h2>
-      </div>
+      ></div>
 
       {personWork?.map((work) => (
         <div
           key={work.id}
-          className="flex gap-10 mt-5 text-left flex-wrap lg:flex-nowrap"
+          className="mt-5 grid grid-cols-1 sm:grid-cols-[minmax(50px,_4fr),minmax(150px,_8fr)] gap-5 justify-start items-start text-left"
         >
-          <div className="min-w-40">
+          {/* <div
+             key={work.id}
+             className="flex gap-10 mt-5 text-left flex-wrap lg:flex-nowrap"
+          > */}
+          <div className="">
             <p>
               {work.startDateJob}
               <span className="mx-3">-</span>
@@ -33,11 +38,12 @@ function SheetWork({ personWork, bgColor }: Props) {
             </p>
             <p>{work.positionTitle}</p>
           </div>
-          <div className="min-w-40">
+          <div className="">
             <h3 className="font-semibold">{work.companyName}</h3>
             <p>{work.responsabilities}</p>
           </div>
         </div>
+        // </div>
       ))}
     </div>
   );

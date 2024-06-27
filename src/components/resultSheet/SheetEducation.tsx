@@ -9,23 +9,22 @@ interface Props {
 function SheetEducation({ personEducation, bgColor }: Props) {
   return (
     <div className="min-h-40">
+      <h2 className="text-left font-bold text-lg mb-4">Education</h2>
       <div
+        className="border-b"
         style={{
           color: bgColor,
-          backgroundColor:
-            lightOrDark(bgColor) === "dark" ? "#000000" : "#53535312",
+          borderBottomColor:
+            lightOrDark(bgColor) === "dark" ? "#000000" : bgColor,
         }}
-        className="p-3"
-      >
-        <h2 className="font-bold text-lg">Education</h2>
-      </div>
+      ></div>
 
       {personEducation?.map((education) => (
         <div
           key={education.id}
-          className="flex gap-10 mt-5 text-left flex-wrap lg:flex-nowrap"
+          className="mt-5 grid grid-cols-1 sm:grid-cols-[minmax(50px,_4fr),minmax(150px,_8fr)] gap-5 justify-start items-start text-left"
         >
-          <div className="min-w-40">
+          <div className="">
             <p>
               {education.startDateEducation}
               <span className="mx-3">-</span>
@@ -33,7 +32,7 @@ function SheetEducation({ personEducation, bgColor }: Props) {
             </p>
             <p>{education.location}</p>
           </div>
-          <div className="min-w-40">
+          <div className="">
             <h3 className="font-semibold">{education.schoolName}</h3>
             <p>{education.degree}</p>
           </div>
