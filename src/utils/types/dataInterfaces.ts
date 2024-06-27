@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export interface CommonPersonData {
   id: string;
-  closed: boolean;
+  closed?: boolean;
 }
 
 export interface PersonWorkData extends CommonPersonData {
