@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
 import "./App.css";
+
+import { useEffect, useState, useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
 import { v4 as uuidv4 } from "uuid";
 import AccordionCustomStyles from "./components/Accordion/AccordionCustomStyles";
 import GeneralInfo from "./components/GeneralInfo";
@@ -15,21 +19,13 @@ import {
 import SheetContainer from "./components/resultSheet/SheetContainer";
 import ChangeLayout from "./components/resultSheet/ChangeLayout";
 import ChangeBgColor from "./components/resultSheet/ChangeBgColor";
-import { Button } from "@material-tailwind/react";
 import SelectToEdit from "./components/resultSheet/SelectToEdit";
+import { exampleData } from "./utils/exampleData";
+import ExampleDataHandlers from "./components/ExampleDataHandlers";
 
 function App() {
-  const [personFullData, setPersonFullData] = useState<PersonFullDataInterface>(
-    {
-      generalInfo: {
-        name: "",
-        email: "",
-        phone: "",
-      },
-      schools: [],
-      companys: [],
-    }
-  );
+  const [personFullData, setPersonFullData] =
+    useState<PersonFullDataInterface>(exampleData);
 
   const [personEducationData, setPersonEducationData] =
     useState<PersonEducationData>({
@@ -58,6 +54,7 @@ function App() {
   const [layoutShift, setLayoutShift] = useState<"vertical" | "left" | "right">(
     "vertical"
   );
+  const sheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     console.log(personFullData.generalInfo.name);
@@ -136,6 +133,19 @@ function App() {
     }
   };
 
+  const generatePDF = async () => {
+    if (sheetRef.current) {
+      const canvas = await html2canvas(sheetRef.current, { scale: 2 });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "cm", "a4");
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("sheet.pdf");
+    }
+  };
+
   return (
     <div className="grid 2xl:grid-cols-[400px,_minmax(0,_1fr)] gap-8 items-start">
       <div>
@@ -144,7 +154,16 @@ function App() {
             editOption={editOption}
             handleEditOption={handleEditOption}
           />
+
+          <button
+            onClick={generatePDF}
+            className="mt-5 bg-blue-500 text-white p-2 rounded"
+          >
+            Download as PDF
+          </button>
         </div>
+
+        <ExampleDataHandlers setPersonFullData={setPersonFullData} />
 
         {editOption === "info" ? (
           <div>
@@ -172,6 +191,7 @@ function App() {
       </div>
 
       <SheetContainer
+        ref={sheetRef}
         personFullData={personFullData}
         bgColor={bgColor}
         layoutShift={layoutShift}
