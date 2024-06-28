@@ -140,7 +140,7 @@ function SchoolInfoAccordion({
           <div>
             <LabelContainer<PersonEducationData>
               personData={personEducation}
-              type="date"
+              type="text"
               id="startDateEducation"
               content="Start Date"
             />

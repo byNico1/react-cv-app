@@ -8,7 +8,7 @@ import {
 export function changeOnId<
   T extends PersonFullDataInterface | PersonDataOptions
 >(
-  e: React.ChangeEvent<HTMLInputElement>,
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   personData: PersonDataState<T>,
   id: keyof T | keyof PersonFullDataInterface["generalInfo"]
 ) {

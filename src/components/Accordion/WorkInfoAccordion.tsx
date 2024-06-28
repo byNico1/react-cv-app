@@ -137,10 +137,9 @@ function WorkInfoAccordion({
               id="positionTitle"
               content="Position Title"
             />
-
             <LabelContainer<PersonWorkData>
               personData={personWork}
-              type="text"
+              type="textarea"
               id="responsabilities"
               content="Responsabilities Of Your Job"
             />
@@ -148,13 +147,13 @@ function WorkInfoAccordion({
             <div>
               <LabelContainer<PersonWorkData>
                 personData={personWork}
-                type="date"
+                type="text"
                 id="startDateJob"
                 content="Start Date"
               />
               <LabelContainer<PersonWorkData>
                 personData={personWork}
-                type="date"
+                type="text"
                 id="endDateJob"
                 content="End Date"
               />

@@ -12,15 +12,15 @@ export const exampleData: PersonFullDataInterface = {
       id: uuidv4(),
       schoolName: "Oxford University",
       degree: "Software Engineer",
-      startDateEducation: "11-11-2015",
-      endDateEducation: "11-11-2020",
+      startDateEducation: "11/11/2015",
+      endDateEducation: "11/11/2020",
       location: "Oxford",
     },
     {
       id: uuidv4(),
       schoolName: "Boston University",
       degree: "Computer Science",
-      startDateEducation: "11-11-2015",
+      startDateEducation: "11/11/2015",
       endDateEducation: "Present",
       location: "Boston",
     },
@@ -32,8 +32,8 @@ export const exampleData: PersonFullDataInterface = {
       positionTitle: "CEO",
       responsabilities:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero corporis mollitia provident et aliquam, eveniet consequatur sit non possimus rerum quod aspernatur consequuntur ipsam perspiciatis necessitatibus consectetur voluptatum, omnis saepe.",
-      startDateJob: "11-11-2015",
-      endDateJob: "11-11-2020",
+      startDateJob: "11/11/2015",
+      endDateJob: "11/11/2020",
     },
     {
       id: uuidv4(),
@@ -41,8 +41,8 @@ export const exampleData: PersonFullDataInterface = {
       positionTitle: "CEO",
       responsabilities:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero corporis mollitia provident et aliquam, eveniet consequatur sit non possimus rerum quod aspernatur consequuntur ipsam perspiciatis necessitatibus consectetur voluptatum, omnis saepe.",
-      startDateJob: "11-11-2015",
-      endDateJob: "11-11-2020",
+      startDateJob: "11/11/2015",
+      endDateJob: "11/11/2020",
     },
   ],
 };
