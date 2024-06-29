@@ -1,6 +1,6 @@
 # React CV App
 
-[Live Preview](https://bynico1.github.io/react-cv-app/)
+[Live Preview](https://nicoiscoding-react-cv-app.netlify.app/)
 
 ![Preview](public/preview.png)
 
